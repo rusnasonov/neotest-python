@@ -181,6 +181,13 @@ setmetatable(PythonNeotestAdapter, {
         return opts.runner
       end
     end
+    if is_callable(opts.python) then
+        base.get_python_command = opts.python
+    elseif opts.python then
+      base.get_python_command = function()
+        return opts.python
+      end
+    end
     if type(opts.dap) == "table" then
       dap_args = opts.dap
     end
